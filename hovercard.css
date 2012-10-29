@@ -1,0 +1,33 @@
+.sn-hovercard {
+  background-color: #FFF;
+  border: 1px solid #000;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px #CCC;
+  display: none;
+/*  float: left;*/
+  font-size: small;
+  padding: 5px;
+  position: absolute;
+  width: 235px;
+}
+
+.sn-hovercard img {
+  left: 5px;
+  position: absolute;
+  top: 5px;
+}
+
+.sn-hovercard h2, .sn-hovercard h3 {
+  font-size: medium;
+  margin: 0;
+}
+
+.sn-hovercard .hc-content {
+  margin-left: 58px;
+  margin-top: 5px;
+}
+
+.sn-hovercard .hc-bio, .sn-hovercard .hc-status {
+  display: block;
+  margin-bottom: 8px;
+}
