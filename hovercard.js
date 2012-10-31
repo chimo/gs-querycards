@@ -73,7 +73,7 @@
                         <a href="' + data.statusnet_profile_url + '">@' + data.screen_name + '<img src="' + data.profile_image_url + '" /></a>\
                         <p class="hc-stats">\
                           <span class="hc-notices">\
-                            <span class="hc-count">' + data.statuses_count + '</span> notices\
+                            <span class="hc-count">' + data.statuses_count + '</span> notices,\
                           </span>\
                           <span class="hc-subs">\
                             <span class="hc-count">' + data.friends_count + '</span> subscribers\
@@ -84,10 +84,47 @@
                         <h3>Latest</h3>\
                         <span class="hc-status">' + data.status.text + '</span>\
                       </div>\
+                      <div class="hc-actions"><a href="#" id="hc-follow">follow</a>\
+                        <div class="hc-follow-form" style="display: none;">\
+                          <form>\
+                            <fieldset>\
+                              <label for="hc-profile">Your Accound ID</label>\
+                              <input id="hc-profile" type="text" placeholder="e.g. user@identi.ca" />\
+                              <input type="hidden" name="profile" value="' + data.statusnet_profile_url + '" />\
+                              <button type="submit">Subscribe</button>\
+                            </fieldset>\
+                          </form>\
+                        </div>\
+                      </div>\
                    </div>';
         html = $(html).appendTo('body')
             .on('mouseleave', function(){ setTimeout(function() {html.hide();}, 400)})
             .css({top: offset.top, left: offset.left});
+
+        html.find('#hc-follow').on('click', function(e) {
+            e.preventDefault();
+            $(this).parent().find('.hc-follow-form').slideToggle();
+        });
+
+        // TODO: support username@example.org/subdir (?)
+        html.find('form').on('submit', function(e) {
+            e.preventDefault();
+
+            var $form   = $(this),
+                $input  = $form.find('#hc-profile'),
+                profile = $input.val().split('@');
+
+            if(profile.length !== 2) {
+                // TODO: show error msg
+                $input.css('border', '1px solid #F00');
+                return;
+            } else {
+                profile = profile[1];
+            }
+
+            $form.attr('action', 'http://' + profile + '/main/ostatussub');
+            this.submit();
+        });
 
         $link.data('sn-hovercard', html); // Could use ARIA instead
         $link.trigger('mouseenter');      // Initial show() after we got the data

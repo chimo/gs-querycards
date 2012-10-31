@@ -4,9 +4,7 @@
   border-radius: 5px;
   box-shadow: 2px 2px 2px #CCC;
   display: none;
-/*  float: left;*/
   font-size: small;
-  padding: 5px;
   position: absolute;
   width: 235px;
 }
@@ -25,9 +23,36 @@
 .sn-hovercard .hc-content {
   margin-left: 58px;
   margin-top: 5px;
+  padding: 5px;
 }
 
 .sn-hovercard .hc-bio, .sn-hovercard .hc-status {
   display: block;
   margin-bottom: 8px;
 }
+
+.sn-hovercard .hc-actions {
+  background-color: #EEE;
+  border-top: 1px solid #CCC;
+  border-radius: 0 0 5px 5px;
+  padding: 5px;
+}
+
+.sn-hovercard .hc-follow-form {
+  margin-top: 5px;
+}
+
+.sn-hovercard fieldset {
+  border: none;
+}
+
+.sn-hovercard .hc-follow-form button {
+  margin-top: 5px;
+
+}
+
+#hc-profile {
+  margin-bottom: 5px;
+}
+
+
