@@ -39,6 +39,7 @@
 }
 
 .sn-hovercard .hc-follow-form {
+  display: none;
   margin-top: 5px;
 }
 

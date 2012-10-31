@@ -34,21 +34,20 @@
 
     // private
     function getData(e) {
-        var url  = document.createElement('a'),            // Temp <a> so we can modify it without breaking the link.
-            user = $(this).text().substr(1),
-            patt = new RegExp('/' + user + '$'),           // Matches username at end of string 
-            api  = '/api/users/show.json?id=' + user;
-        url.href = $(this).attr('href').replace(patt, ''); // Remove username from URL if present.
-
-        var that = this;
+        var $this = $(this),
+            url   = document.createElement('a'),          // Temp <a> so we can modify it without breaking the link.
+            user  = $this.text().substr(1),
+            patt  = new RegExp('/' + user + '$'),         // Matches username at end of string 
+            api   = '/api/users/show.json?id=' + user;
+        url.href  = $this.attr('href').replace(patt, ''); // Remove username from URL if present.
 
         // NOTE:  Doesn't support api at non-default locations
         // FIXME: This (probably) fails if a single-user instance is installed in a subdir that matches the user's nickname
         $.getJSON(url.href + api) // Fancy URL
-            .success(function(data){buildCard(data, $(that))})
+            .success(function(data){buildCard(data, $this)})
             .error(function() { // Try non-fancy URL
                 $.getJSON(url.href + '/index.php' + api)
-                    .success(function(data){buildCard(data, $(that))})
+                    .success(function(data){buildCard(data, $this)})
                     .error(function(){buildErrorCard()});
             });
 
@@ -67,6 +66,7 @@
         });
 
         var offset = $link.offset(),
+            uid    = (new Date).getTime(),
             html   = '<div class="sn-hovercard">\
                       <div class="hc-content">\
                         <h2>' + data.name + '</h2>\
@@ -84,12 +84,12 @@
                         <h3>Latest</h3>\
                         <span class="hc-status">' + data.status.text + '</span>\
                       </div>\
-                      <div class="hc-actions"><a href="#" id="hc-follow">follow</a>\
-                        <div class="hc-follow-form" style="display: none;">\
+                      <div class="hc-actions"><a href="#" class="hc-follow">follow</a>\
+                        <div class="hc-follow-form">\
                           <form>\
                             <fieldset>\
-                              <label for="hc-profile">Your Accound ID</label>\
-                              <input id="hc-profile" type="text" placeholder="e.g. user@identi.ca" />\
+                              <label for="hc-profile-' + uid + '">Your Accound ID</label>\
+                              <input id="hc-profile-' + uid + '" type="text" placeholder="e.g. user@identi.ca" />\
                               <input type="hidden" name="profile" value="' + data.statusnet_profile_url + '" />\
                               <button type="submit">Subscribe</button>\
                             </fieldset>\
@@ -101,17 +101,16 @@
             .on('mouseleave', function(){ setTimeout(function() {html.hide();}, 400)})
             .css({top: offset.top, left: offset.left});
 
-        html.find('#hc-follow').on('click', function(e) {
+        html.find('.hc-follow').on('click', function(e) {
             e.preventDefault();
             $(this).parent().find('.hc-follow-form').slideToggle();
         });
 
-        // TODO: support username@example.org/subdir (?)
         html.find('form').on('submit', function(e) {
             e.preventDefault();
 
             var $form   = $(this),
-                $input  = $form.find('#hc-profile'),
+                $input  = $form.find('input[type=text]'),
                 profile = $input.val().split('@');
 
             if(profile.length !== 2) {
