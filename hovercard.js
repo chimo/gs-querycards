@@ -27,7 +27,7 @@
                         <h3>Latest</h3>\
                         <span class="hc-status">' + data.status.text + '</span>\
                       </div>\
-                      <div class="hc-actions"><a href="#" class="hc-follow">follow</a>\
+                      <div class="hc-actions"><a href="#" class="hc-follow">subscribe</a>\
                         <div class="hc-follow-form">\
                           <form>\
                             <fieldset>\
