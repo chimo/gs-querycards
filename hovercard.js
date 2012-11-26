@@ -1,45 +1,71 @@
 (function ($) {
     // private
+    function buildHTML(data, group) {
+        var at = '',
+            desc = 'Description',
+            notices = '',
+            latest = '',
+            subs = 'members',
+            html,
+            uid = (new Date).getTime();
+
+        // Redefine some things if we're dealing with @user
+        if (!group) {
+            at   = '@';
+            desc = 'Bio';
+            subs = 'subscribers';
+            notices = '<span class="hc-notices">\
+                    <span class="hc-count">' + data.statuses_count + '</span> notices,\
+                    </span>';
+            latest = '<h3>Latest</h3>\
+                <span class="hc-status">' + data.status.text + '</span>';
+        }
+
+        html = '<div class="sn-hovercard">\
+                  <div class="hc-content">\
+                    <h2>' + (data.name || data.fullname) + '</h2>\
+                    <a href="' + (data.statusnet_profile_url || data.url) + '">' + at + (data.screen_name || data.fullname) + '\
+                      <img src="' + (data.profile_image_url || data.stream_logo) + '" />\
+                    </a>\
+                    <p class="hc-stats">\
+                      ' + notices + '\
+                      <span class="hc-subs">\
+                        <span class="hc-count">' + (data.friends_count || data.member_count) + '</span> ' + subs + '\
+                      </span>\
+                    </p>\
+                    <h3>' + desc + '</h3>\
+                    <span class="hc-bio">' + (data.description || '') + '</span>\
+                    ' + latest + '\
+                  </div>\
+                  <div class="hc-actions"><a href="#" class="hc-follow">subscribe</a>\
+                  <div class="hc-follow-form">\
+                    <form>\
+                      <fieldset>\
+                        <label for="hc-profile-' + uid + '">Your Accound ID</label>\
+                        <input id="hc-profile-' + uid + '" type="text" placeholder="e.g. user@identi.ca" />\
+                        <input type="hidden" name="profile" value="' + (data.statusnet_profile_url || data.url) + '" />\
+                        <button type="submit">Subscribe</button>\
+                      </fieldset>\
+                    </form>\
+                  </div>\
+                </div>\
+              </div>';
+
+        return html;
+    }
+
     function buildCard(data, $link) {
         $link.on('mouseenter', function () {
             setTimeout(function () {
                 $('.sn-hovercard').hide(); // Only show one hovercard at a time
-                $.fn.SnHoverCard('show', $link);
+                $link.data('sn-hovercard').show();
             }, 400);
         });
 
         var offset = $link.offset(),
-            uid    = (new Date).getTime(),
-            html   = '<div class="sn-hovercard">\
-                      <div class="hc-content">\
-                        <h2>' + data.name + '</h2>\
-                        <a href="' + data.statusnet_profile_url + '">@' + data.screen_name + '<img src="' + data.profile_image_url + '" /></a>\
-                        <p class="hc-stats">\
-                          <span class="hc-notices">\
-                            <span class="hc-count">' + data.statuses_count + '</span> notices,\
-                          </span>\
-                          <span class="hc-subs">\
-                            <span class="hc-count">' + data.friends_count + '</span> subscribers\
-                          </span>\
-                        </p>\
-                        <h3>Bio</h3>\
-                        <span class="hc-bio">' + (data.description || '') + '</span>\
-                        <h3>Latest</h3>\
-                        <span class="hc-status">' + data.status.text + '</span>\
-                      </div>\
-                      <div class="hc-actions"><a href="#" class="hc-follow">subscribe</a>\
-                        <div class="hc-follow-form">\
-                          <form>\
-                            <fieldset>\
-                              <label for="hc-profile-' + uid + '">Your Accound ID</label>\
-                              <input id="hc-profile-' + uid + '" type="text" placeholder="e.g. user@identi.ca" />\
-                              <input type="hidden" name="profile" value="' + data.statusnet_profile_url + '" />\
-                              <button type="submit">Subscribe</button>\
-                            </fieldset>\
-                          </form>\
-                        </div>\
-                      </div>\
-                   </div>';
+            group  = ($link.text().charAt(0) === '!'),
+            html   = buildHTML(data, group);
+
         html = $(html).appendTo('body')
             .on('mouseleave', function () { setTimeout(function () { html.hide(); }, 400); })
             .css({top: offset.top, left: offset.left});
@@ -61,7 +87,11 @@
                 $input.css('border', '1px solid #F00');
             } else {
                 profile = profile[1];
-                $form.attr('action', 'http://' + profile + '/main/ostatussub');
+                if(!group) {
+                    $form.attr('action', 'http://' + profile + '/main/ostatussub');
+                } else {
+                    $form.attr('action', 'http://' + profile + '/main/ostatusgroup');
+                }
                 this.submit();
             }
         });
@@ -76,18 +106,18 @@
 
     function getData(e) {
         var $this = $(this),
-            url   = document.createElement('a'),          // Temp <a> so we can modify it without breaking the link.
-            user  = $this.text().substr(1),
-            patt  = new RegExp('/' + user + '$'),         // Matches username at end of string 
-            api   = '/api/users/show.json?id=' + user;
-        url.href  = $this.attr('href').replace(patt, ''); // Remove username from URL if present.
+            id    = $this.text().substr(1),
+            group = ($this.text().charAt(0) === '!'),
+            patt  = (group) ? new RegExp('group\/' + id + '$') : new RegExp(id + '$'),
+            url   = $this.attr('href').replace(patt, ''),
+            api   = (group) ? '/api/statusnet/groups/show.json?id=' + id : '/api/users/show.json?id=' + id;
 
         // NOTE:  Doesn't support api at non-default locations
         // FIXME: This (probably) fails if a single-user instance is installed in a subdir that matches the user's nickname
-        $.getJSON(url.href + api) // Fancy URL
+        $.getJSON(url + api) // Fancy URL
             .success(function (data) { buildCard(data, $this); })
             .error(function () { // Try non-fancy URL
-                $.getJSON(url.href + '/index.php' + api)
+                $.getJSON(url + '/index.php' + api)
                     .success(function (data) { buildCard(data, $this); })
                     .error(function () { buildErrorCard(); });
             });
@@ -113,15 +143,11 @@
                 $collection.each(function () {
                     if ($(this).text().match(/@\w+/)) {
                         $(this).one('mouseenter', getData);
+                    } else if ($(this).text().match(/!\w+/)) {
+                        $(this).one('mouseenter', getData);
                     }
                 });
             });
-        },
-        show: function (elm) {
-            $(elm).data('sn-hovercard').show();
-        },
-        hide: function (elm) {
-            $(elm).data('sn-hovercard').hide();
         }
     };
 
