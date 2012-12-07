@@ -87,7 +87,7 @@
                 $input.css('border', '1px solid #F00');
             } else {
                 profile = profile[1];
-                if(!group) {
+                if (!group) {
                     $form.attr('action', 'http://' + profile + '/main/ostatussub');
                 } else {
                     $form.attr('action', 'http://' + profile + '/main/ostatusgroup');
@@ -108,9 +108,9 @@
         var $this = $(this),
             id    = $this.text().substr(1),
             group = ($this.text().charAt(0) === '!'),
-            patt  = (group) ? new RegExp('group\/' + id + '$') : new RegExp(id + '$'),
+            patt  = group ? new RegExp('group\/' + id + '$') : new RegExp(id + '$'),
             url   = $this.attr('href').replace(patt, ''),
-            api   = (group) ? '/api/statusnet/groups/show.json?id=' + id : '/api/users/show.json?id=' + id;
+            api   = group ? '/api/statusnet/groups/show.json?id=' + id : '/api/users/show.json?id=' + id;
 
         // NOTE:  Doesn't support api at non-default locations
         // FIXME: This (probably) fails if a single-user instance is installed in a subdir that matches the user's nickname
@@ -136,17 +136,15 @@
                     $collection = $this.find('a[href]');
                 }
 
-                if (!$collection) {
-                    return;
+                if ($collection) {
+                    $collection.each(function () {
+                        if ($(this).text().match(/@\w+/)) {
+                            $(this).one('mouseenter', getData);
+                        } else if ($(this).text().match(/!\w+/)) {
+                            $(this).one('mouseenter', getData);
+                        }
+                    });
                 }
-
-                $collection.each(function () {
-                    if ($(this).text().match(/@\w+/)) {
-                        $(this).one('mouseenter', getData);
-                    } else if ($(this).text().match(/!\w+/)) {
-                        $(this).one('mouseenter', getData);
-                    }
-                });
             });
         }
     };
