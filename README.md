@@ -6,6 +6,9 @@ This tiny jQuery plugin scans your selectors for a link that contains an @-menti
 It adds a popup to those links that contains more information about this user.  
 The popup appears on when you hover over the @-mention.
 
+## Demo
+
+Visit: http://chimo.github.io/statusnet-querycards/
 
 ## Usage
 
@@ -51,4 +54,3 @@ You can of course change the look by including your own CSS on your page.
 ## Mentions
 
 * This is inspired by the [Hovercards](http://status.net/wiki/Install_the_JavaScript_API_Plugin#Let.27s_add_hovercards) feature part of the [StatusNet JavaScript API](http://status.net/wiki/Install_the_JavaScript_API_Plugin) plugin.
-* [Project blog post and examples](https://chimo.chromic.org/2012/10/28/statusnet-querycards/)
