@@ -115,7 +115,6 @@
             api   = group ? "/api/statusnet/groups/show.json?id=" + id : "/api/users/show.json?id=" + id;
 
         // NOTE:  Doesn't support api at non-default locations
-        // FIXME: This (probably) fails if a single-user instance is installed in a subdir that matches the user's nickname
         $.getJSON( url + api ) /* Fancy URL */
             .success( function( data ) {
                 buildCard( data, $this );
