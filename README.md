@@ -50,7 +50,3 @@ Visit: http://chimo.github.io/gnusocial-querycards/
 ![Screenshot of a GNU social Querycard](http://chimo.github.com/gnusocial-querycards/gsqc.png)
 
 You can of course change the look by including your own CSS on your page.
-
-## Mentions
-
-* This is inspired by the [Hovercards](http://status.net/wiki/Install_the_JavaScript_API_Plugin#Let.27s_add_hovercards) feature part of the [StatusNet JavaScript API](http://status.net/wiki/Install_the_JavaScript_API_Plugin) plugin.
