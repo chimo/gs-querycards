@@ -1,4 +1,4 @@
-# StatusNet Querycards
+# GNU social Querycards
 
 ## Intro
 
@@ -8,7 +8,7 @@ The popup appears on when you hover over the @-mention.
 
 ## Demo
 
-Visit: http://chimo.github.io/statusnet-querycards/
+Visit: http://chimo.github.io/gnusocial-querycards/
 
 ## Usage
 
@@ -19,7 +19,7 @@ Visit: http://chimo.github.io/statusnet-querycards/
   <a href="http://identi.ca/x11r5">@x11r5</a>
 </div>
 <script>
-  $('.hovercard').SnHoverCard();
+  $('.hovercard').gsHovercard();
 </script>
 ```
 
@@ -29,7 +29,7 @@ Visit: http://chimo.github.io/statusnet-querycards/
 <!DOCTYPE html>
 <html>
   <head>
-    <title>StatusNet Querycards</title>
+    <title>GNU social Querycards</title>
     <link rel="stylesheet" href="hovercard.css" />
   </head>
   <body>
@@ -39,7 +39,7 @@ Visit: http://chimo.github.io/statusnet-querycards/
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="hovercard.js"></script>
     <script>
-      $('.hovercard').SnHoverCard();
+      $('.hovercard').gsHovercard();
     </script>
   </body>
 </html>
@@ -47,7 +47,7 @@ Visit: http://chimo.github.io/statusnet-querycards/
 
 ## Screenshot
 
-![Screenshot of a StatusNet Querycard](http://chimo.github.com/statusnet-querycards/snqc.png)
+![Screenshot of a GNU social Querycard](http://chimo.github.com/gnusocial-querycards/gsqc.png)
 
 You can of course change the look by including your own CSS on your page.
 

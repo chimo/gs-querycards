@@ -1,4 +1,4 @@
-.sn-hovercard {
+.gs-hovercard {
   background-color: #fff;
   border: 1px solid #000;
   border-radius: 5px;
@@ -9,45 +9,45 @@
   width: 235px;
 }
 
-.sn-hovercard img {
+.gs-hovercard img {
   left: 5px;
   position: absolute;
   top: 5px;
 }
 
-.sn-hovercard h2, .sn-hovercard h3 {
+.gs-hovercard h2, .gs-hovercard h3 {
   font-size: medium;
   margin: 0;
 }
 
-.sn-hovercard .hc-content {
+.gs-hovercard .hc-content {
   margin-left: 58px;
   margin-top: 5px;
   padding: 5px;
 }
 
-.sn-hovercard .hc-bio, .sn-hovercard .hc-status {
+.gs-hovercard .hc-bio, .gs-hovercard .hc-status {
   display: block;
   margin-bottom: 8px;
 }
 
-.sn-hovercard .hc-actions {
+.gs-hovercard .hc-actions {
   background-color: #eee;
   border-top: 1px solid #ccc;
   border-radius: 0 0 5px 5px;
   padding: 5px;
 }
 
-.sn-hovercard .hc-follow-form {
+.gs-hovercard .hc-follow-form {
   display: none;
   margin-top: 5px;
 }
 
-.sn-hovercard fieldset {
+.gs-hovercard fieldset {
   border: none;
 }
 
-.sn-hovercard .hc-follow-form button {
+.gs-hovercard .hc-follow-form button {
   margin-top: 5px;
 
 }

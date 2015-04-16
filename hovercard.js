@@ -21,7 +21,7 @@
                 "<span class='hc-status'>" + data.status.text + "</span>";
         }
 
-        html = "<div class='sn-hovercard'>" +
+        html = "<div class='gs-hovercard'>" +
                   "<div class='hc-content'>" +
                     "<h2>" + ( data.name || data.fullname ) + "</h2>" +
                     "<a href='" + ( data.statusnet_profile_url || data.url ) + "'>" + at + ( data.screen_name || data.fullname ) +
@@ -55,8 +55,8 @@
     function buildCard( data, $link ) {
         $link.on( "mouseenter", function() {
             setTimeout( function() {
-                $( ".sn-hovercard" ).hide(); /* Only show one hovercard at a time */
-                $link.data( "sn-hovercard" ).show();
+                $( ".gs-hovercard" ).hide(); /* Only show one hovercard at a time */
+                $link.data( "gs-hovercard" ).show();
             }, 400 );
         } );
 
@@ -98,7 +98,7 @@
             }
         } );
 
-        $link.data( "sn-hovercard", html ); /* Could use ARIA instead */
+        $link.data( "gs-hovercard", html ); /* Could use ARIA instead */
         $link.trigger( "mouseenter" );      /* Initial show() after we got the data */
     }
 
@@ -158,7 +158,7 @@
     };
 
     // Method calling logic
-    $.fn.SnHoverCard = function( method ) {
+    $.fn.gsHovercard = function( method ) {
         var elm;
 
         if ( methods[ method ] ) {
@@ -166,7 +166,7 @@
         } else if ( typeof method === "object" || !method ) {
             elm = methods.init.apply( this, arguments );
         } else {
-            $.error( "Method " +  method + " does not exist on jQuery.SnHoverCard" );
+            $.error( "Method " +  method + " does not exist on jQuery.gsHovercard" );
         }
 
         return elm;
