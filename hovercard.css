@@ -1,8 +1,8 @@
 .sn-hovercard {
-  background-color: #FFF;
+  background-color: #fff;
   border: 1px solid #000;
   border-radius: 5px;
-  box-shadow: 2px 2px 2px #CCC;
+  box-shadow: 2px 2px 2px #ccc;
   display: none;
   font-size: small;
   position: absolute;
@@ -32,8 +32,8 @@
 }
 
 .sn-hovercard .hc-actions {
-  background-color: #EEE;
-  border-top: 1px solid #CCC;
+  background-color: #eee;
+  border-top: 1px solid #ccc;
   border-radius: 0 0 5px 5px;
   padding: 5px;
 }
@@ -55,5 +55,3 @@
 #hc-profile {
   margin-bottom: 5px;
 }
-
-

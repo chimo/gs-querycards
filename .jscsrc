@@ -1,0 +1,10 @@
+{
+	"preset": "jquery",
+	// Preset overrides
+	"requireCamelCaseOrUpperCaseIdentifiers": null,
+	"maximumLineLength": 500,
+	// Additional preset tightening
+	"requireBlocksOnNewline": true,
+	"requireSpaceBeforeBlockStatements": true,
+	"disallowMixedSpacesAndTabs": true
+}
