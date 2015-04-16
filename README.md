@@ -8,7 +8,7 @@ The popup appears on when you hover over the @-mention.
 
 ## Demo
 
-Visit: http://chimo.github.io/gnusocial-querycards/
+Visit: http://chromic.org/gs-querycards/
 
 ## Usage
 
@@ -16,7 +16,7 @@ Visit: http://chimo.github.io/gnusocial-querycards/
 
 ```html
 <div class="hovercard">
-  <a href="http://identi.ca/x11r5">@x11r5</a>
+  <a href="http://sn.chromic.org/chimo">@chimo</a>
 </div>
 <script>
   $('.hovercard').gsHovercard();
@@ -34,7 +34,7 @@ Visit: http://chimo.github.io/gnusocial-querycards/
   </head>
   <body>
     <div class="hovercard">
-      <a href="http://identi.ca/x11r5">@x11r5</a>
+      <a href="http://sn.chromic.org/chimo">@chimo</a>
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script src="hovercard.js"></script>
@@ -47,6 +47,6 @@ Visit: http://chimo.github.io/gnusocial-querycards/
 
 ## Screenshot
 
-![Screenshot of a GNU social Querycard](http://chimo.github.com/gnusocial-querycards/gsqc.png)
+![Screenshot of a GNU social Querycard](https://chimo.github.io/gs-querycards/gsqc.png)
 
 You can of course change the look by including your own CSS on your page.
