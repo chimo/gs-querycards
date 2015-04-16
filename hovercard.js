@@ -40,7 +40,7 @@
                     "<form>" +
                       "<fieldset>" +
                         "<label for='hc-profile-" + uid + "'>Your Accound ID</label>" +
-                        "<input id='hc-profile-" + uid + "' type='text' placeholder='e.g. user@identi.ca' />" +
+                        "<input id='hc-profile-" + uid + "' type='text' placeholder='e.g. user@example.org' />" +
                         "<input type='hidden' name='profile' value='" + ( data.statusnet_profile_url || data.url ) + "' />" +
                         "<button type='submit'>Subscribe</button>" +
                       "</fieldset>" +
