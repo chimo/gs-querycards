@@ -1,23 +1,41 @@
-( function( $ ) {
+( function( $, i18n ) {
+
+    /**
+     * Internationalization
+     */
+    if ( i18n === undefined ) {
+        i18n = {
+            acctID: "Your Accound ID",
+            bio: "Bio",
+            description: "Description",
+            latest: "Latest",
+            members: "members",
+            notices: "notices",
+            placeholder: "e.g. user@example.org",
+            subscribe: "Subscribe",
+            subscribers: "subscribers"
+        };
+    }
+
     /* private */
     function buildHTML( data, group ) {
         var at = "",
-            desc = "Description",
+            desc = i18n.description,
             notices = "",
             latest = "",
-            subs = "members",
+            subs = i18n.members,
             html,
             uid = new Date().getTime();
 
         // Redefine some things if we're dealing with @user
         if ( !group ) {
             at   = "@";
-            desc = "Bio";
-            subs = "subscribers";
+            desc = i18n.bio;
+            subs = i18n.subscribers;
             notices = "<span class='hc-notices'>" +
-                    "<span class='hc-count'>" + data.statuses_count + "</span> notices," +
+                    "<span class='hc-count'>" + data.statuses_count + "</span> " + i18n.notices + ", " +
                     "</span>";
-            latest = "<h3>Latest</h3>" +
+            latest = "<h3>" + i18n.latest + "</h3>" +
                 "<span class='hc-status'>" + data.status.text + "</span>";
         }
 
@@ -35,14 +53,14 @@
                     "<h3>" + desc + "</h3>" +
                     "<span class='hc-bio'>" + ( data.description || "" ) + "</span>" + latest +
                   "</div>" +
-                  "<div class='hc-actions'><a href='#' class='hc-follow'>subscribe</a>" +
+                  "<div class='hc-actions'><a href='#' class='hc-follow'>" + i18n.subscribe + "</a>" +
                   "<div class='hc-follow-form'>" +
                     "<form>" +
                       "<fieldset>" +
-                        "<label for='hc-profile-" + uid + "'>Your Accound ID</label>" +
-                        "<input id='hc-profile-" + uid + "' type='text' placeholder='e.g. user@example.org' />" +
+                        "<label for='hc-profile-" + uid + "'>" + i18n.acctID + "</label>" +
+                        "<input id='hc-profile-" + uid + "' type='text' placeholder='" + i18n.placeholder + "' />" +
                         "<input type='hidden' name='profile' value='" + ( data.statusnet_profile_url || data.url ) + "' />" +
-                        "<button type='submit'>Subscribe</button>" +
+                        "<button type='submit'>" + i18n.subscribe + "</button>" +
                       "</fieldset>" +
                     "</form>" +
                   "</div>" +
@@ -171,4 +189,4 @@
         return elm;
     };
 
-}( jQuery ) );
+}( jQuery, window.i18n ) );
