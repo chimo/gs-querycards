@@ -45,6 +45,17 @@ Visit: http://chromic.org/gs-querycards/
 </html>
 ```
 
+## Translations
+
+If the widget has been translated in your language, you use it on your page by adding the locale *before* hovercard.js
+
+To use the French translation, for example:
+
+```html
+    <script src="locale/fr.js"></script>
+    <script src="hovercard.js"></script>
+```
+
 ## Screenshot
 
 ![Screenshot of a GNU social Querycard](https://chimo.github.io/gs-querycards/gsqc.png)
