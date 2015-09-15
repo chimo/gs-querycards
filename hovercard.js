@@ -126,11 +126,33 @@
 
     function getData() {
         var $this = $( this ),
-            id    = $this.text().substr( 1 ),
+            id = $this.text().substr( 1 ),
             group = ( $this.text().charAt( 0 ) === "!" ),
-            patt  = group ? new RegExp( "group\/" + id + "$" ) : new RegExp( id + "$" ),
-            url   = $this.attr( "href" ).replace( patt, "" ),
-            api   = group ? "/api/statusnet/groups/show.json?id=" + id : "/api/users/show.json?id=" + id;
+            url = $this.attr( "href" ),
+            patt, api, match;
+
+        if ( group ) {
+
+            // Groups can be referenced in two ways:
+            //   1. http://example.org/group/$ID/id
+            //   2. http://example.org/group/$NAME
+            patt = new RegExp( "group\/([0-9]+)/id$" );
+            match = url.match( patt );
+
+            // Try 1.
+            if ( match ) {
+                id = match[ 1 ];
+            } else {
+                patt = new RegExp( "group\/" + id + "$" ); // Try 2.
+            }
+
+            url = $this.attr( "href" ).replace( patt, "" );
+            api = "/api/statusnet/groups/show.json?id=" + id;
+        } else {
+            patt = new RegExp( id + "$" );
+            url = url.replace( patt, "" );
+            api = "/api/users/show.json?id=" + id;
+        }
 
         // NOTE:  Doesn't support api at non-default locations
         $.getJSON( url + api ) /* Fancy URL */
